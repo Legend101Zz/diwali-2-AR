@@ -18,7 +18,7 @@ const targetImage = new URL(
   import.meta.url
 ).href;
 const model = new URL("./assets/diwali_3d_poster.glb", import.meta.url).href;
-const music = new URL("../assets/music.mp3", import.meta.url).href;
+const music = new URL("./assets/music.mp3", import.meta.url).href;
 
 import "./index.css";
 
@@ -86,7 +86,7 @@ const imageTrackerGroup = new ZapparThree.ImageAnchorGroup(
   camera,
   imageTracker
 );
-// const contentGroup = new THREE.Group();
+const contentGroup = new THREE.Group();
 
 // Add our image tracker group into the ThreeJS scene
 scene.add(imageTrackerGroup);
@@ -138,14 +138,6 @@ imageTrackerGroup.add(ambientLight);
 // Load your font
 // Create a font loader
 const fontLoader = new FontLoader();
-
-// Use the default font (helvetiker) - you can choose a different one if desired
-fontLoader.load(
-  "https://cdn.rawgit.com/mrdoob/three.js/r125/examples/fonts/helvetiker_regular.typeface.json",
-  function (font) {
-    createText(font);
-  }
-);
 
 function createText(font: any) {
   const textGeometry = new TextGeometry("FANISKO \n WISHES YOU", {
@@ -291,6 +283,24 @@ imageBtn.addEventListener("click", () => {
   }
 });
 
+//=========TEXT-PROMPT=========
+// Define our prompt element and make it show by default
+const Prompt = <HTMLDivElement>document.getElementById("Prompt");
+Prompt.style.display = "block";
+// Create a plane geometry mesh for the background
+const plane = new THREE.Mesh(
+  new THREE.PlaneGeometry(3.07, 2.05),
+  new THREE.MeshBasicMaterial({
+    side: THREE.DoubleSide,
+    color: new THREE.Color(0, 0, 0),
+    transparent: true,
+    opacity: 0.8,
+  })
+);
+
+// add our content to the tracking group.
+contentGroup.add(plane);
+
 //============ADD SOUND============
 
 const sound = new Howl({
@@ -300,6 +310,15 @@ const sound = new Howl({
 // when we lose sight of the camera, hide the scene contents
 
 imageTracker.onVisible.bind(() => {
+  // Use the default font (helvetiker) - you can choose a different one if desired
+  fontLoader.load(
+    "https://cdn.rawgit.com/mrdoob/three.js/r125/examples/fonts/helvetiker_regular.typeface.json",
+    function (font) {
+      createText(font);
+    }
+  );
+  Prompt.style.display = "none";
+
   mymodel.visible = true;
   particles.visible = true;
   sound.play();
@@ -314,8 +333,9 @@ imageTracker.onNotVisible.bind(() => {
   if (targetSeen) {
     // If target was once seen:
     targetSeen = false;
-
+    sound.stop();
     mymodel.visible = false;
+    Prompt.style.display = "block";
   }
 });
 
