@@ -1,23 +1,69 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport",content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      ,content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui"
+    />
     <title>Zappar Universal AR</title>
     <script type="module" src="index.ts"></script>
   </head>
   <body>
+    <img src="./assets/fansiko.png" alt="Logo" class="logo" />
+
+    <div class="container">
+      <!-- <button id="firecrackerButton" style="position: absolute; top: 10px; left: 10px; z-index: 1;">Launch Firecrackers</button> -->
+      <div class="instruction" id="arrow2">
+        <img id="arrow" src="./assets/arrow.png" alt="Arrow" class="arrow" />
+        <p>Click on the gift box</p>
+      </div>
+      <img id="tap-to-place" class="gift-box" src="./assets/tap.png" />
+      <div class="text-container"></div>
+      <div id="image" class="btn"></div>
+      <!-- <div id="video" class="btn"></div> -->
+    </div>
     <div class="center">
-      <p id="PromptText">
+      <!-- <p id="PromptText">
         Aim your phone towards<br />
         the target image
-      </p>
+      </p> -->
       <div id="Prompt">
         <div id="PromptImg">
-          <img style="pointer-events: none;" alt="" src="./assets/TargetImage.png" />
-          <img id="PhoneBackground" draggable="false" style="pointer-events: none;" alt="" src="./assets/Prompt.png" />
+          <img style="pointer-events: none" alt="" src="./assets/tap.png" />
+          <img
+            id="PhoneBackground"
+            draggable="false"
+            style="pointer-events: none"
+            alt=""
+            src="./assets/Prompt.png"
+          />
         </div>
       </div>
     </div>
+    <script>
+      const leftText = document.querySelector(".left-text");
+      const rightText = document.querySelector(".right-text");
+      const photoButton = document.getElementById("image");
+      const videoButton = document.getElementById("video");
+
+      // Show "Photo" button and underline "Image" as initially selected
+      photoButton.style.display = "block";
+
+      // Add click event listeners to the text elements
+      leftText.addEventListener("click", () => {
+        photoButton.style.display = "block";
+        videoButton.style.display = "none";
+        leftText.classList.add("selected-text");
+        rightText.classList.remove("selected-text");
+      });
+
+      rightText.addEventListener("click", () => {
+        videoButton.style.display = "block";
+        photoButton.style.display = "none";
+        rightText.classList.add("selected-text");
+        leftText.classList.remove("selected-text");
+      });
+    </script>
   </body>
 </html>
