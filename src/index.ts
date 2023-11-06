@@ -146,7 +146,7 @@ function createText(font: any) {
     height: 0.05, // Adjust the thickness as needed
   });
 
-  const textMaterial = new THREE.MeshBasicMaterial({ color: 0xfff }); // Adjust the text color as needed
+  const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Adjust the text color as needed
   const textMesh = new THREE.Mesh(textGeometry, textMaterial);
   textMesh.scale.set(0.8, 0.8, 0.8);
   textMesh.position.x = -1;
