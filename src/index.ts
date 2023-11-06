@@ -140,7 +140,7 @@ imageTrackerGroup.add(ambientLight);
 const fontLoader = new FontLoader();
 
 function createText(font: any) {
-  const textGeometry = new TextGeometry("FANISKO \n WISHES YOU", {
+  const textGeometry = new TextGeometry("FANISKO \n WISHES \n YOU", {
     font: font,
     size: 0.2, // Adjust the size as needed
     height: 0.05, // Adjust the thickness as needed
@@ -149,7 +149,7 @@ function createText(font: any) {
   const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Adjust the text color as needed
   const textMesh = new THREE.Mesh(textGeometry, textMaterial);
   textMesh.scale.set(0.8, 0.8, 0.8);
-  textMesh.position.x = -1;
+  textMesh.position.x = -1.5;
   textMesh.position.y = 2;
   // Position the text within your scene
   // textMesh.position.set(-1, 0.2, -3); // Adjust the position as needed
