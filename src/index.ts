@@ -123,11 +123,11 @@ gltfLoader.load(
   }
 );
 
-// Let's add some lighting, first a directional light above the model pointing down
-const directionalLight = new THREE.DirectionalLight("white", 0.8);
-directionalLight.position.set(0, 5, 0);
-directionalLight.lookAt(0, 0, 0);
-imageTrackerGroup.add(directionalLight);
+// // Let's add some lighting, first a directional light above the model pointing down
+// const directionalLight = new THREE.DirectionalLight("white", 0.8);
+// directionalLight.position.set(0, 5, 0);
+// directionalLight.lookAt(0, 0, 0);
+// imageTrackerGroup.add(directionalLight);
 
 // And then a little ambient light to brighten the model up a bit
 const ambientLight = new THREE.AmbientLight("white", 0.8);
@@ -146,7 +146,7 @@ function createText(font: any) {
     height: 0.05, // Adjust the thickness as needed
   });
 
-  const textMaterial = new THREE.MeshBasicMaterial({ color: 0xf4a146 }); // Adjust the text color as needed
+  const textMaterial = new THREE.MeshBasicMaterial({ color: 0xfff }); // Adjust the text color as needed
   const textMesh = new THREE.Mesh(textGeometry, textMaterial);
   textMesh.scale.set(0.8, 0.8, 0.8);
   textMesh.position.x = -1;
