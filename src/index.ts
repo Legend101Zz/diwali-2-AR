@@ -108,10 +108,10 @@ gltfLoader.load(
     // gltf.scene.position.set(0, -0.2, 0);
 
     const spotLight = new THREE.SpotLight(0xffffff);
-    spotLight.position.set(0, 3, 0); // Set the position of the spotlight
+    spotLight.position.set(0, 5, 0); // Set the position of the spotlight
     spotLight.target = mymodel; // Optionally, you can set a target for the spotlight
     spotLight.angle = Math.PI / 8; // Set the spotlight cone angle
-    spotLight.intensity = 2; // Set the intensity of the spotlight
+    spotLight.intensity = 0.8; // Set the intensity of the spotlight
 
     imageTrackerGroup.add(spotLight);
     imageTrackerGroup.add(gltf.scene);
@@ -130,7 +130,7 @@ directionalLight.lookAt(0, 0, 0);
 imageTrackerGroup.add(directionalLight);
 
 // And then a little ambient light to brighten the model up a bit
-const ambientLight = new THREE.AmbientLight("white", 0.4);
+const ambientLight = new THREE.AmbientLight("white", 0.8);
 imageTrackerGroup.add(ambientLight);
 
 //=====================ADDING 3D TEXT===============
