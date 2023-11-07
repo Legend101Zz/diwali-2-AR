@@ -260,10 +260,10 @@ body {
 
 .logo {
   position: fixed;
-  top: 10px; /* Adjust the top position as needed */
-  right: 20px; /* Adjust the right position as needed */
+  top: 50px; /* Adjust the top position as needed */
+  right: 40px; /* Adjust the right position as needed */
   z-index: 2; /* Ensure it's above other content */
-  width: 450px; /* Adjust the width as needed */
+  width: 250px; /* Adjust the width as needed */
   height: auto; /* Maintain the aspect ratio */
 }
 
