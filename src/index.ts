@@ -199,7 +199,7 @@ function createText(font: any) {
   // textMesh.position.set(-1, 0.2, -3); // Adjust the position as needed
 
   // Add the text to the scene
-  scene.add(textMesh);
+  imageTrackerGroup.add(textMesh);
 }
 
 //=========ADDING PARTICLES============
@@ -434,17 +434,20 @@ const sound = new Howl({
 //   fogMesh4.visible = false;
 // }
 // showFogs();
-fontLoader.load(font1, function (font) {
-  createText(font);
-});
+// fontLoader.load(font1, function (font) {
+//   createText(font);
+// });
 
 // when we lose sight of the camera, hide the scene contents
 
 imageTracker.onVisible.bind(() => {
   // Use the default font (helvetiker) - you can choose a different one if desired
-  fontLoader.load(font1, function (font) {
-    createText(font);
-  });
+  fontLoader.load(
+    "https://cdn.rawgit.com/mrdoob/three.js/r125/examples/fonts/helvetiker_regular.typeface.json",
+    function (font) {
+      createText(font);
+    }
+  );
   Prompt.style.display = "none";
   //showFogs();
   sphere.visible = true;
