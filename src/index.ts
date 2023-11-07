@@ -20,7 +20,7 @@ const targetImage = new URL(
 const model = new URL("./assets/diwali_3d_poster.glb", import.meta.url).href;
 const music = new URL("./assets/FIRE.wav", import.meta.url).href;
 const cross1 = new URL("./assets/star1.png", import.meta.url).href;
-const font1 = new URL("./assets/font.json", import.meta.url).href;
+const font1 = new URL("./assets/font.typeface.json", import.meta.url).href;
 
 import "./index.css";
 
