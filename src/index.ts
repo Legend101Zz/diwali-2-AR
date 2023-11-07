@@ -20,6 +20,7 @@ const targetImage = new URL(
 const model = new URL("./assets/diwali_3d_poster.glb", import.meta.url).href;
 const music = new URL("./assets/FIRE.wav", import.meta.url).href;
 const cross1 = new URL("./assets/star1.png", import.meta.url).href;
+const font1 = new URL("./assets/font.json", import.meta.url).href;
 
 import "./index.css";
 
@@ -192,13 +193,13 @@ function createText(font: any) {
   const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Adjust the text color as needed
   const textMesh = new THREE.Mesh(textGeometry, textMaterial);
   textMesh.scale.set(0.8, 0.8, 0.8);
-  textMesh.position.x = -1.5;
+  textMesh.position.x = -1.7;
   textMesh.position.y = 2;
   // Position the text within your scene
   // textMesh.position.set(-1, 0.2, -3); // Adjust the position as needed
 
   // Add the text to the scene
-  imageTrackerGroup.add(textMesh);
+  scene.add(textMesh);
 }
 
 //=========ADDING PARTICLES============
@@ -433,17 +434,17 @@ const sound = new Howl({
 //   fogMesh4.visible = false;
 // }
 // showFogs();
+fontLoader.load(font1, function (font) {
+  createText(font);
+});
 
 // when we lose sight of the camera, hide the scene contents
 
 imageTracker.onVisible.bind(() => {
   // Use the default font (helvetiker) - you can choose a different one if desired
-  fontLoader.load(
-    "https://fonts.googleapis.com/json?family=Bree+Serif",
-    function (font) {
-      createText(font);
-    }
-  );
+  fontLoader.load(font1, function (font) {
+    createText(font);
+  });
   Prompt.style.display = "none";
   //showFogs();
   sphere.visible = true;
