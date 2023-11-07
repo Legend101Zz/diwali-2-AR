@@ -19,6 +19,7 @@ const targetImage = new URL(
 ).href;
 const model = new URL("./assets/diwali_3d_poster.glb", import.meta.url).href;
 const music = new URL("./assets/music.mp3", import.meta.url).href;
+const cross1 = new URL("./assets/star1.png", import.meta.url).href;
 
 import "./index.css";
 
@@ -134,16 +135,17 @@ const ambientLight = new THREE.AmbientLight("white", 0.8);
 imageTrackerGroup.add(ambientLight);
 
 //============ADDING PARTICLES ===============
-
-const geometry = new THREE.TorusGeometry(0.7, 0.2, 16, 100);
+const loader = new THREE.TextureLoader();
+const cross = loader.load(cross1);
+const geometry = new THREE.TorusGeometry(1.3, 0.2, 16, 100);
 
 const pointsGeometry = new THREE.BufferGeometry();
-const particlesCount = 5000;
+const particlesCount = 20000;
 
 const posArray = new Float32Array(particlesCount * 3);
 
 for (let i = 0; i < particlesCount * 3; i++) {
-  posArray[i] = (Math.random() - 0.5) * Math.random() * 5;
+  posArray[i] = (Math.random() - 0.5) * (Math.random() * 5);
 }
 
 pointsGeometry.setAttribute("position", new THREE.BufferAttribute(posArray, 3));
@@ -151,18 +153,28 @@ pointsGeometry.setAttribute("position", new THREE.BufferAttribute(posArray, 3));
 // Materials
 
 const material = new THREE.PointsMaterial({
-  size: 0.009,
-  color: "red",
+  size: 0.03,
+  color: 0xf4a146,
+  map: cross,
+  transparent: true,
 });
 
 const particlesMaterial1 = new THREE.PointsMaterial({
-  size: 0.005,
+  size: 0.01,
+  color: 0xf4a146,
+  map: cross,
+  transparent: true,
 });
 
 // Mesh
 const sphere = new THREE.Points(geometry, material);
 const particlesMesh = new THREE.Points(pointsGeometry, particlesMaterial1);
-imageTrackerGroup.add(sphere, particlesMesh);
+particlesMesh.position.z = -2;
+sphere.position.z = -3;
+sphere.position.y = 0.5;
+sphere.visible = false;
+particlesMesh.visible = false;
+scene.add(particlesMesh, sphere);
 
 //=====================ADDING 3D TEXT===============
 
@@ -204,7 +216,7 @@ const particlesMaterial = new THREE.PointsMaterial({
 });
 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
 particles.visible = false;
-scene.add(particles);
+// scene.add(particles);
 
 // Generate random particle positions and colors
 const positions = [];
@@ -338,6 +350,90 @@ const sound = new Howl({
   src: [music],
 });
 
+//=========ADDING FOGS =========
+
+// Define custom shader materials for the fog
+// const fogMaterial1 = createGradientFogMaterial(0x00ff00); // Green fog
+// const fogMaterial2 = createGradientFogMaterial(0xff0000); // Red fog
+// const fogMaterial3 = createGradientFogMaterial(0x0000ff); // Blue fog
+// const fogMaterial4 = createGradientFogMaterial(0xffffff); // White fog
+
+// // Function to create gradient fog material
+// function createGradientFogMaterial(fogColor) {
+//   return new THREE.ShaderMaterial({
+//     uniforms: {
+//       color: { value: new THREE.Color(fogColor) },
+//       near: { value: 1 },
+//       far: { value: 10 },
+//     },
+//     vertexShader: `
+//       varying vec2 vUv;
+//       void main() {
+//         vUv = uv;
+//         gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+//       }
+//     `,
+//     fragmentShader: `
+//       uniform vec3 color;
+//       uniform float near;
+//       uniform float far;
+//       varying vec2 vUv;
+//       void main() {
+//         float depth = gl_FragCoord.z / gl_FragCoord.w;
+//         float fogFactor = smoothstep(near, far, depth);
+//         gl_FragColor = vec4(mix(vec3(0), color, fogFactor), 1.0);
+//       }
+//     `,
+//     transparent: true,
+//   });
+// }
+
+// // Create fog plane geometries and apply the shader materials
+// const fogGeometry1 = new THREE.PlaneGeometry(100, 100);
+// const fogGeometry2 = new THREE.PlaneGeometry(100, 100);
+// const fogGeometry3 = new THREE.PlaneGeometry(100, 100);
+// const fogGeometry4 = new THREE.PlaneGeometry(100, 100);
+
+// const fogMesh1 = new THREE.Mesh(fogGeometry1, fogMaterial1);
+// const fogMesh2 = new THREE.Mesh(fogGeometry2, fogMaterial2);
+// const fogMesh3 = new THREE.Mesh(fogGeometry3, fogMaterial3);
+// const fogMesh4 = new THREE.Mesh(fogGeometry4, fogMaterial4);
+
+// // Position the fog meshes appropriately
+// fogMesh1.position.set(0, 0, 0); // Adjust the position as needed
+// fogMesh2.position.set(0, 0, 0); // Adjust the position as needed
+// fogMesh3.position.set(0, 0, 0); // Adjust the position as needed
+// fogMesh4.position.set(0, 0, 0); // Adjust the position as needed
+
+// // Add fog meshes to the scene
+// imageTrackerGroup.add(fogMesh1);
+// imageTrackerGroup.add(fogMesh2);
+// imageTrackerGroup.add(fogMesh3);
+// imageTrackerGroup.add(fogMesh4);
+
+// // Hide fog meshes by default
+// fogMesh1.visible = false;
+// fogMesh2.visible = false;
+// fogMesh3.visible = false;
+// fogMesh4.visible = false;
+
+// // Function to show fog meshes when the target is visible
+// function showFogs() {
+//   fogMesh1.visible = true;
+//   fogMesh2.visible = true;
+//   fogMesh3.visible = true;
+//   fogMesh4.visible = true;
+// }
+
+// // Function to hide fog meshes when the target is not visible
+// function hideFogs() {
+//   fogMesh1.visible = false;
+//   fogMesh2.visible = false;
+//   fogMesh3.visible = false;
+//   fogMesh4.visible = false;
+// }
+// showFogs();
+
 // when we lose sight of the camera, hide the scene contents
 
 imageTracker.onVisible.bind(() => {
@@ -349,7 +445,9 @@ imageTracker.onVisible.bind(() => {
     }
   );
   Prompt.style.display = "none";
-
+  //showFogs();
+  sphere.visible = true;
+  particlesMesh.visible = true;
   mymodel.visible = true;
   particles.visible = true;
   sound.play();
@@ -362,7 +460,11 @@ imageTracker.onVisible.bind(() => {
 // TARGET NOT SEEN
 imageTracker.onNotVisible.bind(() => {
   if (targetSeen) {
+    //hideFogs();
+
     // If target was once seen:
+    sphere.visible = false;
+    particlesMesh.visible = false;
     targetSeen = false;
     sound.stop();
     mymodel.visible = false;
@@ -370,23 +472,31 @@ imageTracker.onNotVisible.bind(() => {
   }
 });
 
+const clock = new THREE.Clock();
+
 // Use a function to render our scene as usual
 function render(): void {
+  const elapsedTime = clock.getElapsedTime();
   // The Zappar camera must have updateFrame called every frame
   camera.updateFrame(renderer);
 
   // Draw the ThreeJS scene in the usual way, but using the Zappar camera
   renderer.render(scene, camera);
 
+  //rotate particles
+
+  sphere.rotation.y = 0.5 * elapsedTime;
+  particlesMesh.position.x += 0.001;
+  particlesMesh.position.z += 0.001;
   // Update particle positions or properties here
-  const positions: any = particlesGeometry.getAttribute("position").array;
-  for (let i = 0; i < positions.length; i += 3) {
-    positions[i + 1] += Math.random() * 0.01; // Move particles upward
-    if (positions[i + 1] > 5) {
-      positions[i + 1] = -5; // Reset particles' Y position when they go beyond the screen
-    }
-  }
-  particlesGeometry.getAttribute("position").needsUpdate = true;
+  // const positions: any = particlesGeometry.getAttribute("position").array;
+  // for (let i = 0; i < positions.length; i += 3) {
+  //   positions[i + 1] += Math.random() * 0.01; // Move particles upward
+  //   if (positions[i + 1] > 5) {
+  //     positions[i + 1] = -5; // Reset particles' Y position when they go beyond the screen
+  //   }
+  // }
+  // particlesGeometry.getAttribute("position").needsUpdate = true;
   // Call render() again next frame
   requestAnimationFrame(render);
 }
