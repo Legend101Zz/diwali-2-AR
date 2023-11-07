@@ -133,6 +133,37 @@ gltfLoader.load(
 const ambientLight = new THREE.AmbientLight("white", 0.8);
 imageTrackerGroup.add(ambientLight);
 
+//============ADDING PARTICLES ===============
+
+const geometry = new THREE.TorusGeometry(0.7, 0.2, 16, 100);
+
+const pointsGeometry = new THREE.BufferGeometry();
+const particlesCount = 5000;
+
+const posArray = new Float32Array(particlesCount * 3);
+
+for (let i = 0; i < particlesCount * 3; i++) {
+  posArray[i] = (Math.random() - 0.5) * Math.random() * 5;
+}
+
+pointsGeometry.setAttribute("position", new THREE.BufferAttribute(posArray, 3));
+
+// Materials
+
+const material = new THREE.PointsMaterial({
+  size: 0.009,
+  color: "red",
+});
+
+const particlesMaterial1 = new THREE.PointsMaterial({
+  size: 0.005,
+});
+
+// Mesh
+const sphere = new THREE.Points(geometry, material);
+const particlesMesh = new THREE.Points(pointsGeometry, particlesMaterial1);
+imageTrackerGroup.add(sphere, particlesMesh);
+
 //=====================ADDING 3D TEXT===============
 
 // Load your font

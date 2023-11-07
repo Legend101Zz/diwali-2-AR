@@ -266,3 +266,28 @@ body {
   width: 450px; /* Adjust the width as needed */
   height: auto; /* Maintain the aspect ratio */
 }
+
+/* Diwali light effect */
+.light {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #ffec40; /* Yellow color */
+  border-radius: 50%;
+  animation: flicker 1s infinite;
+  z-index: 2;
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  25%,
+  75% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
