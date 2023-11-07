@@ -18,7 +18,7 @@ const targetImage = new URL(
   import.meta.url
 ).href;
 const model = new URL("./assets/diwali_3d_poster.glb", import.meta.url).href;
-const music = new URL("./assets/music.mp3", import.meta.url).href;
+const music = new URL("./assets/FIRE.wav", import.meta.url).href;
 const cross1 = new URL("./assets/star1.png", import.meta.url).href;
 
 import "./index.css";
@@ -439,7 +439,7 @@ const sound = new Howl({
 imageTracker.onVisible.bind(() => {
   // Use the default font (helvetiker) - you can choose a different one if desired
   fontLoader.load(
-    "https://cdn.rawgit.com/mrdoob/three.js/r125/examples/fonts/helvetiker_regular.typeface.json",
+    "https://fonts.googleapis.com/json?family=Bree+Serif",
     function (font) {
       createText(font);
     }
