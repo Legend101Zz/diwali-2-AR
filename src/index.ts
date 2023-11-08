@@ -107,7 +107,7 @@ gltfLoader.load(
 
     gltf.scene.visible = false;
     gltf.scene.scale.set(0.15, 0.25, 0.25);
-    // gltf.scene.position.set(0, -0.2, 0);
+    gltf.scene.position.set(0, -0.95, 0);
 
     const spotLight = new THREE.SpotLight(0xffffff);
     spotLight.position.set(0, 5, 0); // Set the position of the spotlight
@@ -184,7 +184,7 @@ scene.add(particlesMesh, sphere);
 const fontLoader = new FontLoader();
 
 function createText(font: any) {
-  const textGeometry = new TextGeometry("FANISKO \n WISHES \n YOU", {
+  const textGeometry = new TextGeometry("FANISKO\nWISHES\nYOU", {
     font: font,
     size: 0.2, // Adjust the size as needed
     height: 0.05, // Adjust the thickness as needed
@@ -194,7 +194,7 @@ function createText(font: any) {
   const textMesh = new THREE.Mesh(textGeometry, textMaterial);
   textMesh.scale.set(0.8, 0.8, 0.8);
   textMesh.position.x = -1.7;
-  textMesh.position.y = 2;
+  textMesh.position.y = 1.3;
   // Position the text within your scene
   // textMesh.position.set(-1, 0.2, -3); // Adjust the position as needed
 
@@ -477,6 +477,8 @@ imageTracker.onNotVisible.bind(() => {
 });
 
 const clock = new THREE.Clock();
+
+imageTrackerGroup.position.y = -4;
 
 // Use a function to render our scene as usual
 function render(): void {
