@@ -491,10 +491,10 @@ textOverlay.style.pointerEvents = "none"; // make it non-interactive
 
 // Create the text element
 const textEl = document.createElement("p");
-textEl.textContent =
-  "Hold your camera over the sweet box and let the magic unfold!";
+textEl.innerHTML = `Hold your camera over the sweet box and <br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   let the magic unfold!`;
 textEl.style.color = "white";
-textEl.style.fontSize = "28px";
+textEl.style.fontSize = "40px";
+textEl.style.fontFamily = "Montserrat, sans-serif";
 textEl.style.fontWeight = "bold";
 textEl.style.textShadow = "2px 2px 4px rgba(0,0,0,0.5)";
 
