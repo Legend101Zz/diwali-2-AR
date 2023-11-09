@@ -13,10 +13,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import ZapparSharing from "@zappar/sharing";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 
-const targetImage = new URL(
-  "./assets/example-tracking-image.zpt",
-  import.meta.url
-).href;
+const targetImage = new URL("./assets/traind.zpt", import.meta.url).href;
 const model = new URL("./assets/diwali_3d_poster.glb", import.meta.url).href;
 const music = new URL("./assets/FIRE.wav", import.meta.url).href;
 const cross1 = new URL("./assets/star1.png", import.meta.url).href;
@@ -475,6 +472,35 @@ imageTracker.onNotVisible.bind(() => {
     Prompt.style.display = "block";
   }
 });
+
+//added text
+
+// Create a div for the text overlay
+const textOverlay = document.createElement("div");
+textOverlay.id = "textOverlay";
+textOverlay.style.position = "absolute";
+textOverlay.style.top = "0";
+textOverlay.style.transform = "translateY(-275px)";
+textOverlay.style.left = "0";
+textOverlay.style.width = "100%";
+textOverlay.style.height = "100%";
+textOverlay.style.display = "flex";
+textOverlay.style.alignItems = "center";
+textOverlay.style.justifyContent = "center";
+textOverlay.style.pointerEvents = "none"; // make it non-interactive
+
+// Create the text element
+const textEl = document.createElement("p");
+textEl.textContent =
+  "Hold your camera over the sweet box and let the magic unfold!";
+textEl.style.color = "white";
+textEl.style.fontSize = "28px";
+textEl.style.fontWeight = "bold";
+textEl.style.textShadow = "2px 2px 4px rgba(0,0,0,0.5)";
+
+// Add text to overlay and overlay to prompt div
+textOverlay.appendChild(textEl);
+document.getElementById("Prompt")!.appendChild(textOverlay);
 
 const clock = new THREE.Clock();
 
